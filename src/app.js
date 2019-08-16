@@ -2,9 +2,10 @@ import '@babel/polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
-import schemas from './graphql/schemas';
-import resolvers from './graphql/resolvers';
+// import schemas from './graphql/schemas';
+// import resolvers from './graphql/resolvers';
 import path from 'path';
+import schema from './graphql/schema';
 
 const fs = require('fs');
 const https = require('https');
@@ -20,11 +21,11 @@ const configurations = {
 const environment = process.env.NODE_ENV || 'development';
 const config = configurations[environment];
 
-const schema = makeExecutableSchema({
-  typeDefs: schemas,
-  resolvers,
-  resolverValidationOptions: { requireResolversForResolveType: false },
-});
+// const schema = makeExecutableSchema({
+//   typeDefs: schemas,
+//   resolvers,
+//   resolverValidationOptions: { requireResolversForResolveType: false },
+// });
 
 const apollo = new ApolloServer({
   schema,

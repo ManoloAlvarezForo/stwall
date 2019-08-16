@@ -1,0 +1,48 @@
+import * as EventResolver from '../resolvers/event';
+
+export const Event = `
+    union Events = Preaching | PublicMeeting
+    union Event = Preaching | PublicMeeting
+
+    type EventOutput {
+        date: String
+        events: [Events]
+    }
+`;
+
+export const EventResolvers = {
+  Query: {
+    getEventsByDate: (_, { fromDate, toDate }) => {
+      return EventResolver.getEventsByDate(fromDate, toDate);
+    },
+    eventById: (_, { id }) => {
+      return EventResolver.getEventById(id);
+    },
+  },
+  Event: {
+    __resolveType(obj) {
+      if (obj.kind === 'preaching') {
+        return 'Preaching';
+      }
+
+      if (obj.kind === 'publicMeeting') {
+        return 'PublicMeeting';
+      }
+
+      return null;
+    },
+  },
+  Events: {
+    __resolveType(obj) {
+      if (obj.kind === 'preaching') {
+        return 'Preaching';
+      }
+
+      if (obj.kind === 'publicMeeting') {
+        return 'PublicMeeting';
+      }
+
+      return null;
+    },
+  },
+};
