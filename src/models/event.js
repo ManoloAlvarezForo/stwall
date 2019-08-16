@@ -1,21 +1,27 @@
 import mongoose from 'mongoose';
-import moment from 'moment'
-
-const Schema = mongoose.Schema;
+import moment from 'moment';
 
 /**
- * User mongoose schema.
+ * Options for the base model.
  */
-const eventSchema = new Schema({
+const baseOptions = {
+  discriminatorKey: 'kind', // our discriminator key.
+  collection: 'events', // the name of our collection.
+};
+
+/**
+ * Base Event schema.
+ */
+const eventSchema = new mongoose.Schema(
+  {
     title: String,
     date: String,
-    timeFrom: String,
-    timeTo: String,
+    time: String,
     location: String,
-    participants:[{ type: Schema.Types.ObjectId, ref: 'applicant' }],
     description: String,
-    createdDate: { type: String, default: moment().format()}
-});
+    createdDate: { type: String, default: moment().format() },
+  },
+  baseOptions,
+);
 
-export default mongoose.model('event', eventSchema);;
-
+export default mongoose.model('Event', eventSchema);

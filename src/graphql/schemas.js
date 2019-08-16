@@ -1,253 +1,112 @@
 import { gql } from 'apollo-server';
 
 const schemas = gql`
-type User {
-    id: String,
-    name: String,
+  type User {
+    id: String
+    name: String
     email: String
-}
+  }
 
-type ApplicantUpdatedOutput {
-    applicant: Applicant,
-    updated: Boolean
-}
-
-type ApplicantOutputPhone {
-    number: String,
-    label: String
-}
-
-type ApplicantOutputPhones {
-    list: [ApplicantOutputPhone],
-    keyName: String
-}
-
-type ApplicantOutputMail {
-    mail: String,
-    label: String
-}
-
-type ApplicantOutputMails {
-    list: [ApplicantOutputMail],
-    keyName: String
-}
-
-type ApplicantOutputAccount {
-    account: String,
-    label: String
-}
-
-type ApplicantOutputAccounts {
-    list: [ApplicantOutputAccount],
-    keyName: String
-}
-
-input ApplicantInputPhone {
-    number: String,
-    label: String
-}
-
-input ApplicantInputPhones {
-    list: [ApplicantInputPhone],
-    keyName: String
-}
-
-input ApplicantInputMail {
-    mail: String,
-    label: String
-}
-
-input ApplicantInputMails {
-    list: [ApplicantInputMail],
-    keyName: String
-}
-
-input ApplicantInputAccount {
-    account: String,
-    label: String
-}
-
-input ApplicantInputAccounts {
-    list: [ApplicantInputAccount],
-    keyName: String
-}
-
-input AplicantInput {
-    id: String,
-    name: String,
-    lastName: String,
-    avatar: String,
-    phones: ApplicantInputPhones,
-    mails: ApplicantInputMails,
-    accounts: ApplicantInputAccounts,
-    address: String,
-    position: String,
-}
-
-input AplicantInputNew {
-    name: String,
-    lastName: String,
-    avatar: String,
-    phones: ApplicantInputPhones,
-    mails: ApplicantInputMails,
-    accounts: ApplicantInputAccounts,
-    address: String,
-    position: String,
-}
-
-type Applicant {
-    id: String,
-    name: String,
-    lastName: String,
-    avatar: String,
-    phones: ApplicantOutputPhones,
-    mails: ApplicantOutputMails,
-    accounts: ApplicantOutputAccounts,
-    address: String,
-    position: String,
-    country: String,
-    source: String
-}
-
-type AuthPayLoad {
+  type AuthPayLoad {
     token: String
     user: User
-}
+  }
 
-input PointInput {
-    lat: Float,
-    lng: Float
-}
-
-type PointOutput {
-    lat: Float,
-    lng: Float
-}
-
-input RouteInput {
-    owner: String,
-    points: [PointInput],
-    direction: String,
-    routeNumber: String
-}
-
-type Route {
-    id: String,
-    owner: String,
-    points: [PointOutput],
-    direction: String,
-    routeNumber: String
-}
-
-input InputParticipant {
-    id: String
-}
-
-type Participant {
-    id: String
-}
-
-input InputEvent {
-    title: String,
-    date: String,
-    timeFrom: String,
-    timeTo: String,
-    participants:[String],
+  interface EventInterface {
+    title: String
+    date: String
+    time: String
+    location: String
     description: String
-}
+  }
 
-type Event {
-    id: String,
-    title: String,
-    date: String,
-    timeFrom: String,
-    timeTo: String,
-    participants:[String],
-    description: String,
-    createdDate: String
-}
+  type Preaching implements EventInterface {
+    id: String
+    lead: String
+    territories: [String]
+    title: String
+    date: String
+    time: String
+    location: String
+    description: String
+  }
 
-type CalendarEvent {
-    date: String,
-    events: [Event]
-}
+  input PreachingInput {
+    lead: String
+    territories: [String]
+    title: String
+    date: String
+    time: String
+    location: String
+    description: String
+  }
 
-type BasicApplicant {
-    id: String,
-    name: String,
-    lastName: String
-}
-
-type Client {
-    id: String,
-    name: String,
-    avatar: String,
-    lastName: String,
-    nit: String,
-    nitName: String,
-    address: String,
-    phone: String,
-    createdDate: String
-}
-
-input ClientInput {
-    name: String,
-    avatar: String,
-    lastName: String,
-    nit: String,
-    nitName: String,
-    address: String,
-    phone: String
-}
-
-type Product {
-    id: String,
-    productId: String,
-    image: String,
-    productName: String,
-    price: Float,
-    description: String,
-    isAvailable: Boolean,
-    availableQuantity: Int,
-    createdDate: String
-}
-
-input ProductInput {
-    image: String!,
-    productName: String,
-    price: Float,
-    description: String,
-    availableQuantity: Int,
-}
-
-type ValidToken {
+  type ValidToken {
     isValid: Boolean
-}
+  }
 
-type Query {
+  type PublicMeeting implements EventInterface {
+    id: String
+    title: String
+    date: String
+    time: String
+    location: String
+    description: String
+    meetingType: String
+    president: String
+    speaker: String
+    watchtowerGuider: String
+    watchtowerReader: String
+  }
+
+  input PublicMeetingInput {
+    title: String
+    date: String
+    time: String
+    location: String
+    description: String
+    meetingType: String
+    president: String
+    speaker: String
+    watchtowerGuider: String
+    watchtowerReader: String
+  }
+
+  union Events = Preaching | PublicMeeting
+  union Event = Preaching | PublicMeeting
+
+  type EventOutput {
+    date: String
+    events: [Events]
+  }
+
+  type Query {
     users: [User]
-    applicants: [Applicant]
-    applicantById(id: String): Applicant
-    events: [Event]
-    eventById(id: String): Event
-    eventsByDate(from: String, to: String): [CalendarEvent]
-    calendarEventsByMonth(month: String, year: String, locale: String): [CalendarEvent]
-    applicantsByFilter(query: String, properties: [String]): [Applicant]
-    clientsByFilter(query: String, properties: [String]): [Client]
-    productsByFilter(query: String, properties: [String]): [Product]
     isValidToken(token: String): ValidToken
-}
+    preachings: [Preaching]
+    publicMeetings: [PublicMeeting]
+    eventById(id: String): Event
+    getEventsByDate(fromDate: String, toDate: String): [EventOutput]
+  }
 
-type Mutation {
+  type Mutation {
     signup(email: String, password: String, name: String): AuthPayLoad
     login(email: String, password: String): AuthPayLoad
-    addApplicant(applicant: AplicantInputNew): Applicant
-    updateApplicant(applicantToUpdate: AplicantInput): ApplicantUpdatedOutput
-    addRoute(route: RouteInput): Route
-    addEvent(event: InputEvent): Event
-    addClient(client: ClientInput): Client
-    addProduct(product: ProductInput): Product 
-}
+    addPreachingEvent(event: PreachingInput): Preaching
+    addPublicMeeting(event: PublicMeetingInput): PublicMeeting
+  }
 `;
 
 export default schemas;
+
+// events: [Event]
+// eventById(id: String): Event
+// eventsByDate(from: String, to: String): [CalendarEvent]
+// calendarEventsByMonth(
+//   month: String
+//   year: String
+//   locale: String
+// ): [CalendarEvent]
+// applicantsByFilter(query: String, properties: [String]): [Applicant]
+// clientsByFilter(query: String, properties: [String]): [Client]
+// productsByFilter(query: String, properties: [String]): [Product]

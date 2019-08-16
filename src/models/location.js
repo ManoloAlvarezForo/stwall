@@ -7,13 +7,11 @@ const Schema = mongoose.Schema;
  * Product mongoose schema.
  */
 export default mongoose.model(
-  'leader',
+  'location',
   new Schema({
     name: String,
-    avatar: String,
-    lastName: String,
-    fullBane: String,
-    phone: String,
+    address: String,
+    description: String,
     createdDate: { type: String, default: moment().format() },
   }),
 );

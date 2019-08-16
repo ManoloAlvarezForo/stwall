@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 import schemas from './graphql/schemas';
 import resolvers from './graphql/resolvers';
 import path from 'path';
@@ -20,9 +20,14 @@ const configurations = {
 const environment = process.env.NODE_ENV || 'development';
 const config = configurations[environment];
 
-const apollo = new ApolloServer({
+const schema = makeExecutableSchema({
   typeDefs: schemas,
-  resolvers: resolvers,
+  resolvers,
+  resolverValidationOptions: { requireResolversForResolveType: false },
+});
+
+const apollo = new ApolloServer({
+  schema,
 });
 
 const app = express();
@@ -67,7 +72,7 @@ const port = process.env.PORT || 4000;
 promise.then(function(db) {
   server.listen(config.port, () =>
     console.log(
-      `🚀 TWall Server in (${environment}) environment ready at`,
+      `🚀 Teocratic Wall Server (${environment}) environment running at`,
       `http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}${
         apollo.graphqlPath
       }`,
