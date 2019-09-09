@@ -18,8 +18,8 @@ var configurations = {
   development: { ssl: false, port: 4000, hostname: 'localhost' } };
 
 
-var environment = process.env.NODE_ENV || 'development';
-var config = configurations[environment];
+// const environment = process.env.NODE_ENV || 'development';
+// const config = configurations[environment];
 
 // const schema = makeExecutableSchema({
 //   typeDefs: schemas,
@@ -36,28 +36,28 @@ apollo.applyMiddleware({ app: app });
 
 // Create the HTTPS or HTTP server, per configuration
 //Fixed to load cert and key files using path and __dirname
-var keyPath = _path["default"].join(__dirname, './ssl_files/noox-key.pem');
-var key = fs.readFileSync(keyPath);
+// const keyPath = path.join(__dirname, './ssl_files/noox-key.pem');
+// const key = fs.readFileSync(keyPath);
 
-var certPath = _path["default"].join(__dirname, './ssl_files/noox-cert.pem');
-var cert = fs.readFileSync(certPath);
+// const certPath = path.join(__dirname, './ssl_files/noox-cert.pem');
+// const cert = fs.readFileSync(certPath);
 
 var server;
 
-if (config.ssl) {
-  // Assumes certificates are in .ssl folder from package root. Make sure the files
-  // are secured.
-  server = https.createServer(
-  {
-    key: key,
-    cert: cert },
-
-  app);
-
-} else {
-  server = http.createServer(app);
-}
-
+// if (config.ssl) {
+// 	// Assumes certificates are in .ssl folder from package root. Make sure the files
+// 	// are secured.
+// 	server = https.createServer(
+// 		{
+// 			key: key,
+// 			cert: cert,
+// 		},
+// 		app,
+// 	);
+// } else {
+// 	server = http.createServer(app);
+// }
+server = http.createServer(app);
 // Add subscription support
 apollo.installSubscriptionHandlers(server);
 
@@ -75,7 +75,8 @@ var promise = _mongoose["default"].connect(
 
 
 var port = process.env.PORT || 4000;
-
+var hostname = process.env.hostname;
+var environment = process.env.NODE_ENV;
 promise.then(function (db) {
   server.listen(port, function () {return (
       console.log("\uD83D\uDE80 Teocratic Wall Server (".concat(

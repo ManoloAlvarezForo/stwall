@@ -18,8 +18,8 @@ const configurations = {
 	development: { ssl: false, port: 4000, hostname: 'localhost' },
 };
 
-const environment = process.env.NODE_ENV || 'development';
-const config = configurations[environment];
+// const environment = process.env.NODE_ENV || 'development';
+// const config = configurations[environment];
 
 // const schema = makeExecutableSchema({
 //   typeDefs: schemas,
