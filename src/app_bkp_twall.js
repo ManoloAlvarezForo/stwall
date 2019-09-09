@@ -75,12 +75,11 @@ var promise = mongoose.connect(
 );
 
 const port = process.env.PORT || 4000;
-
 promise.then(function(db) {
-	server.listen(port, () =>
+	server.listen(config.port, () =>
 		console.log(
 			`🚀 Teocratic Wall Server (${environment}) environment running at`,
-			`http' : ''}://${hostname}:${port}${apollo.graphqlPath}`,
+			`http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}${apollo.graphqlPath}`,
 		),
 	);
 });
