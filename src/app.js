@@ -44,20 +44,20 @@ apollo.applyMiddleware({ app });
 
 let server;
 
-if (config.ssl) {
-	// Assumes certificates are in .ssl folder from package root. Make sure the files
-	// are secured.
-	server = https.createServer(
-		{
-			key: key,
-			cert: cert,
-		},
-		app,
-	);
-} else {
-	server = http.createServer(app);
-}
-
+// if (config.ssl) {
+// 	// Assumes certificates are in .ssl folder from package root. Make sure the files
+// 	// are secured.
+// 	server = https.createServer(
+// 		{
+// 			key: key,
+// 			cert: cert,
+// 		},
+// 		app,
+// 	);
+// } else {
+// 	server = http.createServer(app);
+// }
+server = http.createServer(app);
 // Add subscription support
 apollo.installSubscriptionHandlers(server);
 
