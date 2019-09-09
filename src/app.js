@@ -75,7 +75,8 @@ var promise = mongoose.connect(
 );
 
 const port = process.env.PORT || 4000;
-
+const hostname = process.env.hostname;
+const environment = process.env.NODE_ENV;
 promise.then(function(db) {
 	server.listen(port, () =>
 		console.log(
