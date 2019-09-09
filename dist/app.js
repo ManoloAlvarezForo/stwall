@@ -28,6 +28,8 @@ var configurations = {
 // });
 
 var apollo = new _apolloServerExpress.ApolloServer({
+  introspection: true,
+  playground: true,
   schema: _schema["default"] });
 
 

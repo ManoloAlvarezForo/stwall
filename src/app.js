@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
-import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 // import schemas from './graphql/schemas';
 // import resolvers from './graphql/resolvers';
 import path from 'path';
@@ -28,6 +28,8 @@ const configurations = {
 // });
 
 const apollo = new ApolloServer({
+	introspection: true,
+	playground: true,
 	schema,
 });
 
