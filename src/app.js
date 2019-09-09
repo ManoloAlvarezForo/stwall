@@ -36,11 +36,11 @@ apollo.applyMiddleware({ app });
 
 // Create the HTTPS or HTTP server, per configuration
 //Fixed to load cert and key files using path and __dirname
-const keyPath = path.join(__dirname, './ssl_files/noox-key.pem');
-const key = fs.readFileSync(keyPath);
+// const keyPath = path.join(__dirname, './ssl_files/noox-key.pem');
+// const key = fs.readFileSync(keyPath);
 
-const certPath = path.join(__dirname, './ssl_files/noox-cert.pem');
-const cert = fs.readFileSync(certPath);
+// const certPath = path.join(__dirname, './ssl_files/noox-cert.pem');
+// const cert = fs.readFileSync(certPath);
 
 let server;
 
