@@ -6,6 +6,8 @@ Event.discriminator(
   new mongoose.Schema({
     lead: String,
     territories: [String],
+    moment: String,
+    type: { type: String, default: 'preaching'}
   }),
 );
 

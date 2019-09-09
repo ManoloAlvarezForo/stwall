@@ -10,6 +10,8 @@ export const Preaching = `
         time: String
         location: String
         description: String
+        moment: String
+        type: String
     }
 
     input PreachingInput {
@@ -20,6 +22,7 @@ export const Preaching = `
         time: String
         location: String
         description: String
+        moment: String
     }
 `;
 

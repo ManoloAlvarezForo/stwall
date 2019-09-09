@@ -13,6 +13,7 @@ export const PublicMeeting = `
         speaker: String
         watchtowerGuider: String
         watchtowerReader: String
+        type: String
     }
 
     input PublicMeetingInput {
