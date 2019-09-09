@@ -15,6 +15,7 @@ const Query = `
         publicMeetings: [PublicMeeting]
         eventById(id: String): Event
         getEventsByDate(fromDate: String, toDate: String): [EventOutput]
+        getEventsByMonth(month: String, year: String, locale: String): [EventOutput]
     }
 `;
 

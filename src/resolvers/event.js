@@ -42,7 +42,7 @@ export const getEventsByDate = async (fromDateParam, toDateParam) => {
  * @param {String} locale Locale to handle Dates according the locale.
  * @param {String} daysPerMonth Days per month to extra days.
  */
-export const getCalendarEventsByMonth = async (
+export const getEventsByMonth = async (
   month,
   year,
   locale,

@@ -9,6 +9,7 @@ Event.discriminator(
     speaker: String,
     watchtowerGuider: String,
     watchtowerReader: String,
+    type: { type: String, default: 'meeting'}
   }),
 );
 

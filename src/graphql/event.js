@@ -15,6 +15,9 @@ export const EventResolvers = {
     getEventsByDate: (_, { fromDate, toDate }) => {
       return EventResolver.getEventsByDate(fromDate, toDate);
     },
+    getEventsByMonth: (_, { month, year, locale }) => {
+      return EventResolver.getEventsByMonth(month, year, locale);
+    },
     eventById: (_, { id }) => {
       return EventResolver.getEventById(id);
     },
