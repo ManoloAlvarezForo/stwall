@@ -13,9 +13,9 @@ const http = require('http');
 // const {getUserId} = require('./utils/utils')
 
 const configurations = {
-	// Note: You may need sudo to run on port 443
-	production: { ssl: true, port: 8443, hostname: 'localhost' },
-	development: { ssl: false, port: 4000, hostname: 'localhost' },
+  // Note: You may need sudo to run on port 443
+  production: { ssl: true, port: 8443, hostname: 'localhost' },
+  development: { ssl: false, port: 4000, hostname: 'localhost' },
 };
 
 const environment = process.env.NODE_ENV || 'development';
@@ -28,7 +28,7 @@ const config = configurations[environment];
 // });
 
 const apollo = new ApolloServer({
-	schema,
+  schema,
 });
 
 const app = express();
@@ -45,17 +45,17 @@ const cert = fs.readFileSync(certPath);
 let server;
 
 if (config.ssl) {
-	// Assumes certificates are in .ssl folder from package root. Make sure the files
-	// are secured.
-	server = https.createServer(
-		{
-			key: key,
-			cert: cert,
-		},
-		app,
-	);
+  // Assumes certificates are in .ssl folder from package root. Make sure the files
+  // are secured.
+  server = https.createServer(
+    {
+      key: key,
+      cert: cert,
+    },
+    app
+  );
 } else {
-	server = http.createServer(app);
+  server = http.createServer(app);
 }
 
 // Add subscription support
@@ -67,19 +67,18 @@ mongoose.Promise = global.Promise;
 // mongoose.connect('mongodb://localhost/url');
 // Heroku url for Db: mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84
 // Local: mongodb://localhost/twall
-var promise = mongoose.connect(
-	'mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84',
-	{
-		useNewUrlParser: true,
-	},
-);
+var promise = mongoose.connect('mongodb://localhost/twall', {
+  useNewUrlParser: true,
+});
 
 const port = process.env.PORT || 4000;
 promise.then(function(db) {
-	server.listen(config.port, () =>
-		console.log(
-			`🚀 Teocratic Wall Server (${environment}) environment running at`,
-			`http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}${apollo.graphqlPath}`,
-		),
-	);
+  server.listen(config.port, () =>
+    console.log(
+      `🚀 Teocratic Wall Server (${environment}) environment running at`,
+      `http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}${
+        apollo.graphqlPath
+      }`
+    )
+  );
 });
