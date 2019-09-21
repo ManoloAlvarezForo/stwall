@@ -3,9 +3,9 @@
 var APP_SECRET = 'GraphQL-is-aw3some';exports.APP_SECRET = APP_SECRET;
 
 var getUserId = function getUserId(context) {
-  var Authorization = context.request.get('Authorization');
-  if (Authorization) {
-    var token = Authorization.replace('Bearer ', '');var _jwt$verify =
+  var authorization = context.request.get('Authorization');
+  if (authorization) {
+    var token = authorization.replace('Bearer ', '');var _jwt$verify =
     _jsonwebtoken["default"].verify(token, APP_SECRET),userId = _jwt$verify.userId;
     return userId;
   }

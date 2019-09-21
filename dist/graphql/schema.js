@@ -5,9 +5,10 @@ var _eventInterface = require("./eventInterface");
 var _preaching = require("./preaching");
 var _publicMeeting = require("./publicMeeting");
 var _event = require("./event");
+var _notification = require("./notification");
 var _graphqlTools = require("graphql-tools");
 
-var Query = "\n    type Query {\n        users: [User]\n        isValidToken(token: String): ValidToken\n        preachings: [Preaching]\n        publicMeetings: [PublicMeeting]\n        eventById(id: String): Event\n        getEventsByDate(fromDate: String, toDate: String): [EventOutput]\n        getEventsByMonth(month: String, year: String, locale: String): [EventOutput]\n    }\n";
+var Query = "\n    type Query {\n        users: [User]\n        isValidToken(token: String): ValidToken\n        preachings: [Preaching]\n        publicMeetings: [PublicMeeting]\n        eventById(id: String): Event\n        getEventsByDate(fromDate: String, toDate: String): [EventOutput]\n        getEventsByMonth(month: String, year: String, locale: String): [EventOutput]\n        getUnreadNotificationsSize(userId: String): UnreadNotificationsSize\n    }\n";
 
 
 
@@ -19,9 +20,18 @@ var Query = "\n    type Query {\n        users: [User]\n        isValidToken(tok
 
 
 
-var Mutation = "\n    type Mutation {\n        signup(email: String, password: String, name: String): AuthPayLoad\n        login(email: String, password: String): AuthPayLoad\n        addPreachingEvent(event: PreachingInput): Preaching\n        addPublicMeeting(event: PublicMeetingInput): PublicMeeting\n    }\n";
+
+var Mutation = "\n    type Mutation {\n        signup(email: String, password: String, name: String): AuthPayLoad\n        login(email: String, password: String): AuthPayLoad\n        addPreachingEvent(event: PreachingInput): Preaching\n        addPublicMeeting(event: PublicMeetingInput): PublicMeeting\n        sendNotificationByUserId(userId: String, title: String, text: String): Notification\n    }\n";
 
 
+
+
+
+
+
+
+
+var Subscription = "\n    type Subscription {\n      newNotificationsAmmount: Int\n      notificationSent: Notification\n    }\n";
 
 
 
@@ -38,8 +48,10 @@ var resolvers = {};var _default =
   _preaching.Preaching,
   _publicMeeting.PublicMeeting,
   _event.Event,
+  _notification.Notification,
   Query,
-  Mutation],
+  Mutation,
+  Subscription],
 
   resolvers: (0, _lodash.merge)(
   resolvers,
@@ -47,6 +59,7 @@ var resolvers = {};var _default =
   _authentication.AuthenticationResolvers,
   _preaching.PreachingResolvers,
   _publicMeeting.PublicMeetingResolvers,
-  _event.EventResolvers),
+  _event.EventResolvers,
+  _notification.NotificationResolvers),
 
   resolverValidationOptions: { requireResolversForResolveType: false } });exports["default"] = _default;

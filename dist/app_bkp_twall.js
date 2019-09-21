@@ -67,11 +67,8 @@ _mongoose["default"].Promise = global.Promise;
 // mongoose.connect('mongodb://localhost/url');
 // Heroku url for Db: mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84
 // Local: mongodb://localhost/twall
-var promise = _mongoose["default"].connect(
-'mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84',
-{
+var promise = _mongoose["default"].connect('mongodb://localhost/twall', {
   useNewUrlParser: true });
-
 
 
 var port = process.env.PORT || 4000;
@@ -79,7 +76,9 @@ promise.then(function (db) {
   server.listen(config.port, function () {return (
       console.log("\uD83D\uDE80 Teocratic Wall Server (".concat(
       environment, ") environment running at"), "http".concat(
-      config.ssl ? 's' : '', "://").concat(config.hostname, ":").concat(config.port).concat(apollo.graphqlPath)));});
+      config.ssl ? 's' : '', "://").concat(config.hostname, ":").concat(config.port).concat(
+      apollo.graphqlPath)));});
+
 
 
 });
