@@ -14,6 +14,8 @@ import { getUserAuthenticated } from './utils/authentication';
 export const pubsub = new PubSub();
 
 const apolloServer = new ApolloServer({
+  introspection: true,
+  playground: true,
   schema,
   context: async ({ req, connection }) => {
     if (connection) {

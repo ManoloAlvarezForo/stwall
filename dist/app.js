@@ -14,6 +14,8 @@ var _authentication = require("./utils/authentication");function _interopRequire
 var pubsub = new _graphqlSubscriptions.PubSub();exports.pubsub = pubsub;
 
 var apolloServer = new _apolloServerExpress.ApolloServer({
+  introspection: true,
+  playground: true,
   schema: _schema["default"],
   context: function () {var _context = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref) {var req, connection, token, user;return regeneratorRuntime.wrap(function _callee$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:req = _ref.req, connection = _ref.connection;if (!
               connection) {_context2.next = 5;break;}return _context2.abrupt("return",
