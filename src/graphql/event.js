@@ -12,6 +12,9 @@ export const Event = `
 
 export const EventResolvers = {
   Query: {
+    allEvents: () => {
+      return EventResolver.getEvents();
+    },
     getEventsByDate: (_, { fromDate, toDate }) => {
       return EventResolver.getEventsByDate(fromDate, toDate);
     },

@@ -12,6 +12,9 @@ var Event = "\n    union Events = Preaching | PublicMeeting\n    union Event = P
 
 var EventResolvers = {
   Query: {
+    allEvents: function allEvents() {
+      return EventResolver.getEvents();
+    },
     getEventsByDate: function getEventsByDate(_, _ref) {var fromDate = _ref.fromDate,toDate = _ref.toDate;
       return EventResolver.getEventsByDate(fromDate, toDate);
     },
