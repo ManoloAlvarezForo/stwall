@@ -6,7 +6,22 @@ import moment from 'moment';
  * Gets All events.
  */
 export const getEvents = async () => {
-  return await Event.find({});
+  const allEvents = await Event.find({});
+  let response = [];
+
+  for (let index = 0; index < allEvents.length; index++) {
+    const e = allEvents[index];
+    let dateFound = response.find(l => l.date === e.date);
+    if (dateFound) {
+      dateFound.events.push(e);
+      const index = response.indexOf(dateFound);
+      response[index] = dateFound;
+    } else {
+      response = [...response, { date: e.date, events: [e] }];
+    }
+  }
+
+  return response;
 };
 
 /**
@@ -42,31 +57,26 @@ export const getEventsByDate = async (fromDateParam, toDateParam) => {
  * @param {String} locale Locale to handle Dates according the locale.
  * @param {String} daysPerMonth Days per month to extra days.
  */
-export const getEventsByMonth = async (
-  month,
-  year,
-  locale,
-  daysPerMonth,
-) => {
+export const getEventsByMonth = async (month, year, locale, daysPerMonth) => {
   const calendarUtil = getStartAndEndDateFromMonth(
     month,
     year,
     locale,
-    daysPerMonth,
+    daysPerMonth
   );
-  const from = calendarUtil.startDate;
-  const to = calendarUtil.endDate;
+  const fromDate = calendarUtil.startDate;
+  const toDate = calendarUtil.endDate;
   let response = [];
 
-  while (!moment(from).isAfter(to)) {
-    let auxDate = await Event.find({ date: from.format('YYYY-MM-DD') });
+  while (!moment(fromDate).isAfter(toDate)) {
+    let auxDate = await Event.find({ date: fromDate.format('YYYY-MM-DD') });
     if (auxDate.length !== 0) {
-      let dayAux = { date: from.format('YYYY-MM-DD'), events: [] };
+      let dayAux = { date: fromDate.format('YYYY-MM-DD'), events: [] };
       dayAux.events = dayAux.events.concat(auxDate);
       response.push(dayAux);
     }
 
-    from.add(1, 'days');
+    fromDate.add(1, 'days');
   }
 
   return response;

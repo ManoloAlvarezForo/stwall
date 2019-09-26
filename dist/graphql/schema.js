@@ -8,7 +8,7 @@ var _event = require("./event");
 var _notification = require("./notification");
 var _graphqlTools = require("graphql-tools");
 
-var Query = "\n    type Query {\n        users: [User]\n        isValidToken(token: String): ValidToken\n        preachings: [Preaching]\n        publicMeetings: [PublicMeeting]\n        eventById(id: String): Event\n        allEvents: [Event]\n        getEventsByDate(fromDate: String, toDate: String): [EventOutput]\n        getEventsByMonth(month: String, year: String, locale: String): [EventOutput]\n        getUnreadNotificationsSize(userId: String): UnreadNotificationsSize\n    }\n";
+var Query = "\n    type Query {\n        users: [User]\n        isValidToken(token: String): ValidToken\n        preachings: [Preaching]\n        publicMeetings: [PublicMeeting]\n        eventById(id: String): Event\n        allEvents: [EventOutput]\n        getEventsByDate(fromDate: String, toDate: String): [EventOutput]\n        getEventsByMonth(month: String, year: String, locale: String): [EventOutput]\n        getUnreadNotificationsSize(userId: String): UnreadNotificationsSize\n    }\n";
 
 
 

@@ -15,7 +15,7 @@ const Query = `
         preachings: [Preaching]
         publicMeetings: [PublicMeeting]
         eventById(id: String): Event
-        allEvents: [Event]
+        allEvents: [EventOutput]
         getEventsByDate(fromDate: String, toDate: String): [EventOutput]
         getEventsByMonth(month: String, year: String, locale: String): [EventOutput]
         getUnreadNotificationsSize(userId: String): UnreadNotificationsSize
