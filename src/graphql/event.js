@@ -24,6 +24,9 @@ export const EventResolvers = {
     eventById: (_, { id }) => {
       return EventResolver.getEventById(id);
     },
+    recentEvents: () => {
+      return EventResolver.getRecentEvents();
+    },
   },
   Event: {
     __resolveType(obj) {

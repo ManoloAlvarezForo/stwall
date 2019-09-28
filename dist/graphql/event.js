@@ -23,6 +23,9 @@ var EventResolvers = {
     },
     eventById: function eventById(_, _ref3) {var id = _ref3.id;
       return EventResolver.getEventById(id);
+    },
+    recentEvents: function recentEvents() {
+      return EventResolver.getRecentEvents();
     } },
 
   Event: {

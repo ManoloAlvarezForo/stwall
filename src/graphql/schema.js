@@ -19,6 +19,7 @@ const Query = `
         getEventsByDate(fromDate: String, toDate: String): [EventOutput]
         getEventsByMonth(month: String, year: String, locale: String): [EventOutput]
         getUnreadNotificationsSize(userId: String): UnreadNotificationsSize
+        recentEvents: [EventOutput]
     }
 `;
 
