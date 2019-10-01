@@ -5,6 +5,7 @@ import { EventInterface } from './eventInterface';
 import { Preaching, PreachingResolvers } from './preaching';
 import { PublicMeeting, PublicMeetingResolvers } from './publicMeeting';
 import { Event, EventResolvers } from './event';
+import { Notification, NotificationResolvers } from './notification';
 import { makeExecutableSchema } from 'graphql-tools';
 
 const Query = `
@@ -14,8 +15,11 @@ const Query = `
         preachings: [Preaching]
         publicMeetings: [PublicMeeting]
         eventById(id: String): Event
+        allEvents: [EventOutput]
         getEventsByDate(fromDate: String, toDate: String): [EventOutput]
         getEventsByMonth(month: String, year: String, locale: String): [EventOutput]
+        getUnreadNotificationsSize(userId: String): UnreadNotificationsSize
+        recentEvents(today: String): [EventOutput]
     }
 `;
 
@@ -25,6 +29,14 @@ const Mutation = `
         login(email: String, password: String): AuthPayLoad
         addPreachingEvent(event: PreachingInput): Preaching
         addPublicMeeting(event: PublicMeetingInput): PublicMeeting
+        sendNotificationByUserId(userId: String, title: String, text: String): Notification
+    }
+`;
+
+const Subscription = `
+    type Subscription {
+      newNotificationsAmmount: Int
+      notificationSent: Notification
     }
 `;
 
@@ -38,8 +50,10 @@ export default makeExecutableSchema({
     Preaching,
     PublicMeeting,
     Event,
+    Notification,
     Query,
     Mutation,
+    Subscription,
   ],
   resolvers: merge(
     resolvers,
@@ -48,6 +62,7 @@ export default makeExecutableSchema({
     PreachingResolvers,
     PublicMeetingResolvers,
     EventResolvers,
+    NotificationResolvers
   ),
   resolverValidationOptions: { requireResolversForResolveType: false },
 });

@@ -1,5 +1,6 @@
 import * as PrechingResolver from '../resolvers/preaching';
-
+import * as NotificationResolvers from '../resolvers/notifications';
+import { pubsub } from '../app';
 export const Preaching = `
     type Preaching implements EventInterface {
         id: String
@@ -33,8 +34,20 @@ export const PreachingResolvers = {
     },
   },
   Mutation: {
-    addPreachingEvent: (_, { event }) => {
-      return PrechingResolver.addEvent(event);
+    addPreachingEvent: async (_, { event }, context) => {
+      const currentUser = await context.user;
+      if (!currentUser) {
+        throw new Error('You are not Authenticated!');
+      }
+      const response = await PrechingResolver.addEvent(event);
+
+      await NotificationResolvers.sendNotificationToAll(
+        'New Preaching event was created',
+        'A new preaching event was created please review your calendar events in the Events option.',
+        pubsub
+      );
+
+      return response;
     },
   },
 };

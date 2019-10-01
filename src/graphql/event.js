@@ -12,6 +12,9 @@ export const Event = `
 
 export const EventResolvers = {
   Query: {
+    allEvents: () => {
+      return EventResolver.getEvents();
+    },
     getEventsByDate: (_, { fromDate, toDate }) => {
       return EventResolver.getEventsByDate(fromDate, toDate);
     },
@@ -20,6 +23,9 @@ export const EventResolvers = {
     },
     eventById: (_, { id }) => {
       return EventResolver.getEventById(id);
+    },
+    recentEvents: (_, { today }) => {
+      return EventResolver.getRecentEvents(today);
     },
   },
   Event: {
