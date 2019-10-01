@@ -79,7 +79,20 @@ var getEventsByMonth = /*#__PURE__*/function () {var _ref3 = _asyncToGenerator( 
             fromDate.add(1, 'days');_context3.next = 4;break;case 12:return _context3.abrupt("return",
 
 
-            response);case 13:case "end":return _context3.stop();}}}, _callee3);}));return function getEventsByMonth(_x3, _x4, _x5, _x6) {return _ref3.apply(this, arguments);};}();
+            response);case 13:case "end":return _context3.stop();}}}, _callee3);}));return function getEventsByMonth(_x3, _x4, _x5, _x6) {return _ref3.apply(this, arguments);};}();exports.getEventsByMonth = getEventsByMonth;
+
+
+var getRecentEvents = /*#__PURE__*/function () {var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {var now, response, allEvents, todayEvent, events;return regeneratorRuntime.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+            now = (0, _moment["default"])();
+            response = [];_context4.next = 4;return (
+              getEvents());case 4:allEvents = _context4.sent;
+            todayEvent = allEvents.find(function (e) {return e.date === now.format('YYYY-MM-DD');});
+            response = [].concat(_toConsumableArray(response), [todayEvent]);
+            events = allEvents.filter(function (e) {return (0, _moment["default"])(e.date).isAfter(now);});
+
+            response = [].concat(_toConsumableArray(response), _toConsumableArray(events));return _context4.abrupt("return",
+
+            response);case 10:case "end":return _context4.stop();}}}, _callee4);}));return function getRecentEvents() {return _ref4.apply(this, arguments);};}();
 
 
 /**
