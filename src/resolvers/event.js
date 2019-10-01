@@ -82,19 +82,6 @@ export const getEventsByMonth = async (month, year, locale, daysPerMonth) => {
   return response;
 };
 
-export const getRecentEvents = async () => {
-  const now = moment();
-  let response = [];
-  const allEvents = await getEvents();
-  const todayEvent = allEvents.find(e => e.date === now.format('YYYY-MM-DD'));
-  response = [...response, todayEvent];
-  const events = allEvents.filter(e => moment(e.date).isAfter(now));
-
-  response = [...response, ...events];
-
-  return response;
-};
-
 /**
  * Gets the recent events according a today date that gets the next 2 events.
  *
