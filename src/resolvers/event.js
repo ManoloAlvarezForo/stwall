@@ -6,11 +6,12 @@ import moment from 'moment';
  * Gets All events.
  */
 export const getEvents = async (filter = 'preaching') => {
-  const allEvents = await Event.find({});
+  const allEvents = await Event.find({}).sort({ date: 'asc' });
   let response = [];
 
   for (let index = 0; index < allEvents.length; index++) {
     const e = allEvents[index];
+    //TODO: apply a filter to get events by date to add in the new list
     let dateFound = response.find(l => l.date === e.date && l.type === filter);
     if (dateFound) {
       dateFound.events.push(e);

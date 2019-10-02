@@ -52,15 +52,18 @@ apolloServer.installSubscriptionHandlers(server);
 //Db connection.
 mongoose.Promise = global.Promise;
 
-// mongoose.connect('mongodb://localhost/url');
-// Heroku url for Db: mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84
-// Local: mongodb://localhost/twall
+// Heroku Database configuration.
 var promise = mongoose.connect(
   'mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84',
   {
     useNewUrlParser: true,
   }
 );
+
+// Local Database configuration.
+// var promise = mongoose.connect('mongodb://localhost/twall', {
+//   useNewUrlParser: true,
+// });
 
 const port = process.env.PORT || 4000;
 const hostname = process.env.hostname;
@@ -69,8 +72,7 @@ const environment = process.env.NODE_ENV;
 promise.then(function(db) {
   server.listen(port, () =>
     console.log(
-      `🚀 Teocratic Wall Server (${environment}) environment running at`,
-      `http' : ''}://${hostname}:${port}`
+      `🚀 Teocratic Wall Server [${environment}] environment running at port:${port}`
     )
   );
 });
