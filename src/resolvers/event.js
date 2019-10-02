@@ -1,5 +1,6 @@
 import Event from '../models/event';
 import { getStartAndEndDateFromMonth } from '../utils/CalendarUtil';
+import { groupBy } from '../utils/arrayUtils';
 import moment from 'moment';
 
 /**
@@ -7,20 +8,14 @@ import moment from 'moment';
  */
 export const getEvents = async (filter = 'preaching') => {
   const allEvents = await Event.find({}).sort({ date: 'asc' });
-  let response = [];
-
-  for (let index = 0; index < allEvents.length; index++) {
-    const e = allEvents[index];
-    //TODO: apply a filter to get events by date to add in the new list
-    let dateFound = response.find(l => l.date === e.date && l.type === filter);
-    if (dateFound) {
-      dateFound.events.push(e);
-      const index = response.indexOf(dateFound);
-      response[index] = dateFound;
-    } else {
-      response = [...response, { date: e.date, events: [e] }];
-    }
-  }
+  const groupByDate = groupBy('date');
+  const groupedEvents = groupByDate(allEvents);
+  const response = Object.keys(groupedEvents).map(e => {
+    return {
+      date: e,
+      events: groupedEvents[e],
+    };
+  });
 
   return response;
 };
