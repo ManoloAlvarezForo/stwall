@@ -84,7 +84,7 @@ export const getEventsByMonth = async (month, year, locale, daysPerMonth) => {
  * @param {String} today String date that represent today.
  */
 export const getRecentEvents = async today => {
-  let now = moment();
+  let now = moment(today);
   let response = [];
   let finishFind = false;
   let counter = 0;

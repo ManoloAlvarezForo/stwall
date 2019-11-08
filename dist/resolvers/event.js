@@ -84,7 +84,7 @@ var getEventsByMonth = /*#__PURE__*/function () {var _ref3 = _asyncToGenerator( 
                                                                                                                                                                                       * @param {String} today String date that represent today.
                                                                                                                                                                                       */exports.getEventsByMonth = getEventsByMonth;
 var getRecentEvents = /*#__PURE__*/function () {var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(today) {var now, response, finishFind, counter, allEvents, todayEvent, eventAfterToday;return regeneratorRuntime.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
-            now = (0, _moment["default"])();
+            now = (0, _moment["default"])(today);
             response = [];
             finishFind = false;
             counter = 0;_context4.next = 6;return (
