@@ -53,17 +53,17 @@ apolloServer.installSubscriptionHandlers(server);
 mongoose.Promise = global.Promise;
 
 // Heroku Database configuration.
-var promise = mongoose.connect(
-  'mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84',
-  {
-    useNewUrlParser: true,
-  }
-);
+// var promise = mongoose.connect(
+//   'mongodb://heroku_83d9bs84:tb9qh5oc92uku07c1q9v1g8rof@ds121696.mlab.com:21696/heroku_83d9bs84',
+//   {
+//     useNewUrlParser: true,
+//   }
+// );
 
 // Local Database configuration.
-// var promise = mongoose.connect('mongodb://localhost/twall', {
-//   useNewUrlParser: true,
-// });
+var promise = mongoose.connect('mongodb://localhost/twall', {
+  useNewUrlParser: true,
+});
 
 const port = process.env.PORT || 4000;
 const hostname = process.env.hostname;

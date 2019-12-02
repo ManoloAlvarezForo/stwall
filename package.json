@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "Manolo Alvarez Foro",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "nodemon --exec babel-node src/app.js",
     "build": "babel src --out-dir dist",
     "serve": "node dist/app.js"
   },
